@@ -6,4 +6,10 @@ package com.ttd.interfaces;
  */
 public interface Context {
 
+	void displayFatalError(String message, String title);
+
+	String getClientName();
+
+	void displayMessage(String message);
+
 }
