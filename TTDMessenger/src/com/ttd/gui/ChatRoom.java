@@ -106,12 +106,12 @@ public class ChatRoom extends JFrame implements Context, Constants,
 			gbc.gridwidth = 1;
 			gbc.gridheight = 1;
 			gbc.ipadx = gbc.ipady = 5;
-			gbc.weightx = 4.0;
+			gbc.weightx = 10.0;
 			gbc.weighty = 7.0;
 			gbc.fill = GridBagConstraints.BOTH;
 
 			gbc.anchor = GridBagConstraints.NORTHWEST;
-			getContentPane().add(getChatArea(), gbc);
+			getContentPane().add(getChatScrollPane(), gbc);
 
 			// File file = new File("resources/afraid.gif");
 			// String url = file.getAbsolutePath();
@@ -169,6 +169,8 @@ public class ChatRoom extends JFrame implements Context, Constants,
 		{
 			setMessageArea(new JTextArea());
 			getMessageArea().setBackground(Color.WHITE);
+			getMessageArea().setWrapStyleWord(true);
+			getMessageArea().setLineWrap(true);
 			getMessageArea().setEditable(true);
 			getMessageArea().setVisible(true);
 			// messageArea.setBorder(border);
@@ -184,7 +186,7 @@ public class ChatRoom extends JFrame implements Context, Constants,
 			gbc.gridwidth = 1;
 			gbc.gridheight = 2;
 			gbc.ipadx = gbc.ipady = 5;
-			gbc.weightx = 4.0;
+			gbc.weightx = 10.0;
 			gbc.weighty = 2.0;
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -262,7 +264,8 @@ public class ChatRoom extends JFrame implements Context, Constants,
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == getSend()) {
-			if (getMessageArea().getText() != "") {
+			String text = getMessageArea().getText();
+			if ( text != null && text.length() > 0) {
 				String message = getUtility().processMessageToSend(
 						this.getClientName(), getMessageArea().getText());
 				System.out.println("Sent: " + message);

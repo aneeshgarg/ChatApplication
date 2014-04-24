@@ -39,8 +39,8 @@ public abstract class ReadAndSend extends Thread implements Constants {
 		System.out.println("Active Read and Send No: " + (++count));
 
 		String message = "";
+		this.sendUserList(socket);
 		while (this.loggedIn) {
-			this.sendUserList(socket);
 			message = "";
 			try {
 				System.out.println("Waiting for msg");

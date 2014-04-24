@@ -41,6 +41,7 @@ public abstract class Sender extends Thread implements Constants {
 
 			try {
 				socket = new Socket(address, SERVER_PORT);
+				System.out.println("Client Info: "+socket.toString());
 			} catch (IOException e) {
 				context.displayFatalError("Cannot create connection",
 						"Connection Failed");
@@ -48,6 +49,9 @@ public abstract class Sender extends Thread implements Constants {
 				System.exit(0);
 			}
 
+			Reciever reciever = new Reciever(context, socket);
+			reciever.start();
+			
 			try {
 				sendStream = new PrintWriter(socket.getOutputStream(), true);
 				sendStream.println(context.getClientName() + SEPERATOR + COMMAND_LOGIN);
@@ -57,9 +61,6 @@ public abstract class Sender extends Thread implements Constants {
 				e.printStackTrace();
 				System.exit(0);
 			}
-
-			Reciever reciever = new Reciever(context, socket);
-			reciever.start();
 
 			while (reciever.isAlive()) {
 				try {
